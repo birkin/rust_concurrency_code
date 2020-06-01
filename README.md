@@ -1,3 +1,10 @@
+### next
+
+- Server runs, so do the first 'Synchronous requests' part of the jamesmcm blog-post.
+
+---
+
+
 ### resources
 
 - <https://jamesmcm.github.io/blog/2020/05/06/a-practical-introduction-to-async-programming-in-rust/#en>
