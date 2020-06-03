@@ -288,6 +288,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0b631f7e854af39a1739f401cf34a8a013dfe09eac4fa4dba91e9768bd28168d"
 
 [[package]]
+name = "part01_server"
+version = "0.1.0"
+dependencies = [
+ "futures",
+ "tokio",
+]
+
+[[package]]
 name = "pin-project"
 version = "0.4.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -354,14 +362,6 @@ name = "redox_syscall"
 version = "0.1.56"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2439c63f3f6139d1b57529d16bc3b8bb855230c8efcc5d3a896c8bea7c3b1e84"
-
-[[package]]
-name = "server01_example"
-version = "0.1.0"
-dependencies = [
- "futures",
- "tokio",
-]
 
 [[package]]
 name = "signal-hook-registry"

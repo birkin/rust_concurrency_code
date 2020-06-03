@@ -40,10 +40,44 @@ fn main() {
     let rectangle: Rectangle = Rectangle {
         top_left: origin(),
         bottom_right: Point { x: 3.0, y: -4.0 }
-    }
+    };
 
     // Heap allocated rectangle
-    HEREZZ
+    let boxed_rectangle: Box<Rectangle> = Box::new( Rectangle {
+        top_left: origin(),
+        bottom_right: Point { x: 3.0, y: -4.0 },
+    });
+
+    // The output of functions can be boxed
+    let boxed_point: Box<Point> = Box::new( origin() );
+
+    // Double indirection
+    let box_in_a_box: Box< Box<Point> > = Box::new( boxed_origin() );
+
+    println!(
+        "Point occupies ``{:?}`` bytes on the stack",
+        mem::size_of_val(&point) );
+    println!(
+        "Rectangle occupies ``{:?}`` bytes on the stack",
+        mem::size_of_val(&rectangle) );
+
+    // box size == pointer size
+    println!(
+        "Boxed point occupies ``{:?}`` bytes on the stack",
+        mem::size_of_val(&boxed_point) );
+    println!(
+        "Boxed rectangle occupies ``{:?}`` bytes on the stack",
+        mem::size_of_val(&boxed_rectangle) );
+    println!(
+        "Boxed box occupies ``{:?}`` bytes on the stack",
+        mem::size_of_val(&box_in_a_box) );
+
+    // Copy the data contained in `boxed_point` into `unboxed_point`
+    let unboxed_point: Point = *boxed_point;
+    println!(
+        "Unboxed point occupies ``{:?}`` bytes on the stack",
+        mem::size_of_val(&unboxed_point) );
+
 }
 
 

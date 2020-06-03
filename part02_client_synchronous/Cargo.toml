@@ -1,5 +1,5 @@
 [package]
-name = "client_synchronous"
+name = "part02_client_synchronous"
 version = "0.1.0"
 authors = ["birkin <birkin.diana@gmail.com>"]
 edition = "2018"
