@@ -1,5 +1,9 @@
 /*  Grokking boxes...
-    <https://doc.rust-lang.org/rust-by-example/std/box.html>  */
+    <https://doc.rust-lang.org/rust-by-example/std/box.html>
+
+    Gist -- but other good stuff in the paragraph...
+    Re `Box<T>`...
+    "A box is a smart pointer to a heap allocated value of type T."  */
 
 use std::mem;
 
@@ -83,3 +87,21 @@ fn main() {
 
 /*  My thought: "Why?" -- My thinking is that the heap, though slower, is where
     you'd put something that's dynamic. Might there be other reasons? */
+
+
+/*  Output...
+
+    $
+    $ cargo run
+        Finished dev [unoptimized + debuginfo] target(s) in 0.00s
+         Running `target/debug/box_experimentation`
+    Point occupies ``16`` bytes on the stack
+    Rectangle occupies ``32`` bytes on the stack
+    Boxed point occupies ``8`` bytes on the stack
+    Boxed rectangle occupies ``8`` bytes on the stack
+    Boxed box occupies ``8`` bytes on the stack
+    Unboxed point occupies ``16`` bytes on the stack
+    $
+
+    */
+
