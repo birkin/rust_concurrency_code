@@ -1,6 +1,7 @@
 ### next
 
-- Server runs, so do the first 'Synchronous requests' part of the jamesmcm blog-post.
+- finish the part02 synchronous-client
+
 
 ---
 
