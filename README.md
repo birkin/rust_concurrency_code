@@ -1,6 +1,7 @@
 ### next
 
-- finish the part02 synchronous-client
+- <https://jamesmcm.github.io/blog/2020/05/06/a-practical-introduction-to-async-programming-in-rust/#en>
+    - specifically: finish the part02 synchronous-client
 
 
 ---

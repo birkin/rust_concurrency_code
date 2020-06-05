@@ -34,9 +34,19 @@ fn task( label: &str, now: time::Instant ) -> Result< (), Box<dyn std::error::Er
     // Read 5 chars we expect (to avoid dealing with EOF, etc.)
     let mut buffer = [0; 5];
     stream.read_exact( &mut buffer )?;
+    stream.shutdown( std::net::Shutdown::Both )?;
+    println!(
+        "OS Thread ``{:?}`` -- {} read: ``{:?}``",
+        std::thread::current().id(), label, now.elapsed()
+    );
 
-    HEREZZ
-
+    // Simulate computation work by sleeping actual thread for 4 seconds
+    sleep( std::time::Duration::from_secs(4) );
+    println!(
+        "OS Thread ``{:?}`` -- {} finished: ``{:?}``",
+        std::thread::current().id(), std::str::from_utf8( &buffer )?, now.elapsed()
+    );
+    Ok( () )
 }
 
 
