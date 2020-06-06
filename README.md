@@ -10,6 +10,7 @@
 ### resources
 
 - <https://jamesmcm.github.io/blog/2020/05/06/a-practical-introduction-to-async-programming-in-rust/#en>
+    - github code, <https://github.com/jamesmcm/async-rust-example>
     - Goes through a few different approaches.
     - Uses tokio.
     - Shows single-thread/core and multi-core approaches.
