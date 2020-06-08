@@ -46,11 +46,35 @@ fn task( label: &str, now: time::Instant ) -> Result< (), Box<dyn std::error::Er
         "OS Thread ``{:?}`` -- {} finished: ``{:?}``",
         std::thread::current().id(), std::str::from_utf8( &buffer )?, now.elapsed()
     );
+
     Ok( () )
+
 }
 
 
+/* -- Output --
 
+$
+$ pwd
+/path/to/rust_projects/concurrency_stuff/rust_concurrency_code/part02_client_synchronous
+$
+$ cargo run
+   Compiling part02_client_synchronous v0.1.0 (/Users/birkin/Documents/rust_projects/concurrency_stuff/rust_concurrency_code/part02_client_synchronous)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.28s
+     Running `target/debug/part02_client_synchronous`
+OS Thread ``ThreadId(1)`` -- ``task1`` started: ``694ns``
+OS Thread ``ThreadId(1)`` -- ``task1`` written: ``2.005715042s``
+OS Thread ``ThreadId(1)`` -- task1 read: ``10.006701192s``
+OS Thread ``ThreadId(1)`` -- task1 finished: ``14.009713312s``
+OS Thread ``ThreadId(1)`` -- ``task2`` started: ``14.009794504s``
+OS Thread ``ThreadId(1)`` -- ``task2`` written: ``16.014866937s``
+OS Thread ``ThreadId(1)`` -- task2 read: ``24.015590203s``
+OS Thread ``ThreadId(1)`` -- task2 finished: ``28.015943481s``
+OS Thread ``ThreadId(1)`` -- ``task3`` started: ``28.015993345s``
+OS Thread ``ThreadId(1)`` -- ``task3`` written: ``30.021551602s``
+OS Thread ``ThreadId(1)`` -- task3 read: ``38.026663566s``
+OS Thread ``ThreadId(1)`` -- task3 finished: ``42.027353828s``
+$
 
-
+*/
 
