@@ -1,7 +1,7 @@
 ### next
 
 - <https://jamesmcm.github.io/blog/2020/05/06/a-practical-introduction-to-async-programming-in-rust/#en>
-    - specifically: start the part03 tokio-synchronous-client
+    - specifically: start the part05 tokio-asynchronous on _multiple_ threads
 
 
 ---
