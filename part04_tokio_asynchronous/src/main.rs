@@ -60,3 +60,29 @@ async fn task( label: &str, now: std::time::Instant ) -> Result< (), Box<dyn Err
     Ok( () )
 
 }
+
+
+/* -- Output --
+
+$
+$ pwd
+/path/to/concurrency_stuff/rust_concurrency_code/part04_tokio_asynchronous
+$
+$ cargo run
+    Finished dev [unoptimized + debuginfo] target(s) in 0.08s
+     Running `target/debug/part04_tokio_asynchronous`
+OS Thread ``ThreadId(1)`` -- ``task1`` started: ``111.27µs``
+OS Thread ``ThreadId(1)`` -- ``task2`` started: ``195.462µs``
+OS Thread ``ThreadId(1)`` -- ``task3`` started: ``202.739µs``
+OS Thread ``ThreadId(1)`` -- ``task3`` written: ``2.006309276s``
+OS Thread ``ThreadId(1)`` -- ``task2`` written: ``2.006379328s``
+OS Thread ``ThreadId(1)`` -- ``task1`` written: ``2.006434668s``
+OS Thread ``ThreadId(1)`` -- ``task2`` read: ``10.007538812s``
+OS Thread ``ThreadId(1)`` -- ``task2`` finished: ``14.00785164s``
+OS Thread ``ThreadId(1)`` -- ``task1`` read: ``14.007996707s``
+OS Thread ``ThreadId(1)`` -- ``task1`` finished: ``18.011646071s``
+OS Thread ``ThreadId(1)`` -- ``task3`` read: ``18.011813749s``
+OS Thread ``ThreadId(1)`` -- ``task3`` finished: ``22.016692972s``
+$
+
+*/

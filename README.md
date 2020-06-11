@@ -1,8 +1,6 @@
 ### next
 
-- <https://jamesmcm.github.io/blog/2020/05/06/a-practical-introduction-to-async-programming-in-rust/#en>
-    - specifically: "We can modify our first synchronous example above to do this with rayon"
-
+- done... just add println comments and explore.
 
 ---
 

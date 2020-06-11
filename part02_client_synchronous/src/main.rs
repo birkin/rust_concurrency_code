@@ -1,7 +1,6 @@
 use std::io::prelude::*;
 use std::net::TcpStream;
 use std::thread::sleep;
-// use std::time::Instant;
 use std::time;
 
 
@@ -59,7 +58,7 @@ $ pwd
 /path/to/rust_projects/concurrency_stuff/rust_concurrency_code/part02_client_synchronous
 $
 $ cargo run
-   Compiling part02_client_synchronous v0.1.0 (/Users/birkin/Documents/rust_projects/concurrency_stuff/rust_concurrency_code/part02_client_synchronous)
+   Compiling part02_client_synchronous v0.1.0 (/path/to/concurrency_stuff/rust_concurrency_code/part02_client_synchronous)
     Finished dev [unoptimized + debuginfo] target(s) in 0.28s
      Running `target/debug/part02_client_synchronous`
 OS Thread ``ThreadId(1)`` -- ``task1`` started: ``694ns``

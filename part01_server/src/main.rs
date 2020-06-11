@@ -44,6 +44,16 @@ async fn main() {
 
 /*
 
+Usage...
+
+In one terminal window...
+
+$ cargo run
+
+...and then run the client-code in another terminal window
+
+---
+
 notes...
 
 - From <https://doc.rust-lang.org/std/macro.eprintln.html>... "Use eprintln! only for error and progress messages. Use println! instead for the primary output of your program.
@@ -54,6 +64,14 @@ notes...
 
     - don't understand that yet, but <https://doc.rust-lang.org/stable/book/ch13-01-closures.html#capturing-the-environment-with-closures> contains good info on the move keyword to "... to force the closure to take ownership of the values it uses in the environment..."
 
-    - ah, ok. good info: <https://rust-lang.github.io/async-book/03_async_await/01_chapter.html#async-move>. Skimmed but re-read.
+    - ah, ok. good info: <https://rust-lang.github.io/async-book/03_async_await/01_chapter.html#async-move>. Skimmed but will re-read.
+
+---
+
+Output, responding to any of the client-examples is simply...
+
+wrote ``5`` bytes
+wrote ``5`` bytes
+wrote ``5`` bytes
 
 */
