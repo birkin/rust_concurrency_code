@@ -1,6 +1,9 @@
 ### next
 
-- done... just add println comments and explore.
+- explore tokio sync -- oth01_tokio_sync_play
+- explore tokio semaphore example
+- explore tokio mutex example
+- play with integrating them to have x number of asychronous jobs, all writing sychronously to either a dict or a file.
 
 ---
 
@@ -16,6 +19,11 @@
 - <https://www.reddit.com/r/rust/comments/gdwuat/suckit_a_fast_multithreaded_website_downloader/>
     - "SuckIT allows you to recursively visit and download a website's content to your disk."
     - Doesn't work on Windows -- wonder what that means?
+
+- things to check out...
+    - <https://gist.github.com/lu4nm3/b8bca9431cdcf19d73040ada13387e58>
+    - <http://patshaughnessy.net/2020/1/20/downloading-100000-files-using-async-rust>
+    - <https://smallcultfollowing.com/babysteps/blog/2019/12/09/async-interview-2-cramertj/>
 
 ---
 
