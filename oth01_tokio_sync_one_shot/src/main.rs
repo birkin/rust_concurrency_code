@@ -1,12 +1,16 @@
+/*
+    Goal: to explore <https://tokio-rs.github.io/tokio/doc/tokio/sync/index.html#oneshot-channel>
+    Example of a single-producer -> single-consumer
+*/
+
 use std::thread::sleep;
 use std::time;
 use tokio::sync::oneshot;
 
 
 // #[tokio::main]
-// #[tokio::main(core_threads = 4, max_threads = 8)]
 /*
-    or #[tokio::main(core_threads = INT, max_threads = INT)]
+    or #[tokio::main(core_threads = INT, max_threads = INT)] -- eg #[tokio::main(core_threads = 4, max_threads = 8)]
     <https://docs.rs/tokio/0.2.21/tokio/runtime/struct.Builder.html#method.core_threads>
 */
 
@@ -81,5 +85,3 @@ async fn some_computation() -> String {
 // whole thing took, ``2.00405526s``
 // birkin@bbox-2015$
 // (one of the ThreadIds will always be 5, the other, in testing, was 2 or 3 or 4)
-
-

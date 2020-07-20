@@ -193,7 +193,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "oth01_tokio_sync_play"
+name = "oth01b_tokio_sync_single_producer_to_single_consumer_2"
 version = "0.1.0"
 dependencies = [
  "tokio",

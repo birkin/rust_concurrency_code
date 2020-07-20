@@ -1,6 +1,8 @@
 ### next
 
 - explore tokio sync -- oth01_tokio_sync_play
+    - [tokio 'sync' page](https://tokio-rs.github.io/tokio/doc/tokio/sync/index.html)
+
 - explore tokio semaphore example
 - explore tokio mutex example
 - play with integrating them to have x number of asychronous jobs, all writing sychronously to either a dict or a file.

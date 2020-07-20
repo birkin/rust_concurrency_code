@@ -1,5 +1,5 @@
 [package]
-name = "oth01_tokio_sync_play"
+name = "oth01_tokio_one_shot"
 version = "0.1.0"
 authors = ["birkin <birkin.diana@gmail.com>"]
 edition = "2018"
