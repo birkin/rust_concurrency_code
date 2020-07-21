@@ -31,8 +31,8 @@ async fn main() {
         tx2.send(res2).unwrap();
     });
 
-    println!( "other work can be done here" );
     // Do other work while the computation is happening in the background
+    println!( "other work can be done here" );
 
     // Wait for the computation result
     let res = rx.await.unwrap();

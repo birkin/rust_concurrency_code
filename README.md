@@ -2,10 +2,15 @@
 
 Exploring tokio sync -- <https://tokio-rs.github.io/tokio/doc/tokio/sync/index.html>
 
-- make sure I can run the two existing one-shot examples
+√ make sure I can run the two existing one-shot examples
 - explore the mpsc-channel examples
-    - "The mpsc channel supports sending many values from many producers to a single consumer."
-    - I think this is what I'd use to have multiple producers -- each reading a marc-file -- write asychronously to the output-file.
+    x "The mpsc channel supports sending many values from many producers to a single consumer."
+    x I think this is what I'd use to have multiple producers -- each reading a marc-file -- write asychronously to the output-file.
+
+    -> document what I think is happening in `oth02_tokio_mpsc`
+        - that seems to be creating 10 producers that are all going through the single expensive-computation function.
+            - I want 10 produces to concurrently do expensive work -- and then print output through a single append-to-file function.
+
 
 ---
 
