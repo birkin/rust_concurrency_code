@@ -1,3 +1,9 @@
+/*
+    Goal: to explore <https://tokio-rs.github.io/tokio/doc/tokio/sync/index.html#mpsc-channel>
+
+    An example of a multiple-producer -> single-consumer
+*/
+
 use std::thread::sleep;
 use std::time;
 
@@ -10,9 +16,11 @@ async fn some_computation( input: u32 ) -> String {
 
     let now = time::Instant::now();
     sleep( time::Duration::from_secs(2) );
-
     let msg = format!( "that_took, ``{:?}`` on thread, ``{:?}``", now.elapsed(), std::thread::current().id() ).to_string();
-    msg
+    println!( "msg, {:?}", msg );
+
+    format!( "the result of computation {}", input )
+
 }
 
 

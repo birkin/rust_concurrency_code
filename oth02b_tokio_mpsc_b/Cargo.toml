@@ -1,0 +1,10 @@
+[package]
+name = "oth02b_tokio_mpsc_b"
+version = "0.1.0"
+authors = ["birkin <birkin.diana@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tokio = { version = "0.2.21", features = ["full"] }
