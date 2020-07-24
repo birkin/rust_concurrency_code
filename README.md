@@ -6,10 +6,12 @@ Exploring tokio sync -- <https://tokio-rs.github.io/tokio/doc/tokio/sync/index.h
 - explore the mpsc-channel examples
     x "The mpsc channel supports sending many values from many producers to a single consumer."
     x I think this is what I'd use to have multiple producers -- each reading a marc-file -- write asychronously to the output-file.
+    √ try the oth02c example
+    √ finish reading <http://www.randomhacks.net/2019/03/08/should-rust-channels-panic-on-send/>
+    - make a copy of oth02b and implement concurrent producers targetting a single-consumer file-writer.
 
-    -> document what I think is happening in `oth02_tokio_mpsc`
-        - that seems to be creating 10 producers that are all going through the single expensive-computation function.
-            - I want 10 produces to concurrently do expensive work -- and then print output through a single append-to-file function.
+    - hmmm... maybe I don't have to write syncronously! <https://docs.rs/tokio/0.2.22/tokio/fs/struct.OpenOptions.html#method.append>
+
 
 
 ---
