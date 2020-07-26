@@ -8,6 +8,7 @@ use std::io::prelude::*;  // needed for write!() macro
 use std::thread::sleep;
 use std::time;
 
+use chrono::{DateTime, Local};
 use tokio::io;
 use tokio::sync::mpsc;
 
@@ -27,19 +28,21 @@ async fn main() -> io::Result<()> {
         .open( &output_filepath )
         .unwrap();
 
+
     let (tx, mut rx) = mpsc::channel( 100 );
     for i in 0..10 {
         // Each task needs its own `tx` handle. This is done by cloning the original handle.
         let mut tx = tx.clone();
 
         tokio::spawn( async move {
-            let text_to_write: String = some_computation( i, start_now ).await;
+            let text_to_write: String = expensive_computation( i, start_now ).await;
             tx.send( text_to_write ).await.unwrap();
         });
     }
 
     // Do other work while the computation is happening in the background.
-    println!( "other work can be done here" );
+    other_work_a();
+    other_work_b();
 
     // The `rx` half of the channel returns `None` once **all** `tx` clones
     // drop. To ensure `None` is returned, drop the handle owned by the
@@ -67,12 +70,11 @@ async fn main() -> io::Result<()> {
 // }
 
 
-// -- from oth02...
-async fn some_computation( input: u32, start_now: time::Instant ) -> String {
+async fn expensive_computation( input: u32, start_now: time::Instant ) -> String {
+    let now = time::Instant::now();  // for elapsed-time
+    let local_time: DateTime<Local> = Local::now();
+    println!( "\nstarting expensive_computation at, ``{:?}`` on thread, ``{:?}``", local_time.to_rfc3339(), std::thread::current().id() );
 
-    // format!( "the result of computation {}", input )
-
-    let now = time::Instant::now();
     sleep( time::Duration::from_secs(2) );
     let msg: String = format!( "that_took, ``{:?}`` -- for a total elapsed time of, ``{:?}`` -- on thread, ``{:?}``", now.elapsed(), start_now.elapsed(), std::thread::current().id() ).to_string();
     println!( "msg, {:?}", msg );
@@ -80,3 +82,14 @@ async fn some_computation( input: u32, start_now: time::Instant ) -> String {
     let text_to_write: String = format!( "the result of computation {}", input );
     text_to_write
 }
+
+
+fn other_work_a() {
+    println!( "other-work-a can be done here" );
+}
+
+
+fn other_work_b() {
+    println!( "other-work-b can be done here" );
+}
+
