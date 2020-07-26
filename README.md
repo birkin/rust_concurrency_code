@@ -8,7 +8,9 @@ Exploring tokio sync -- <https://tokio-rs.github.io/tokio/doc/tokio/sync/index.h
     x I think this is what I'd use to have multiple producers -- each reading a marc-file -- write asychronously to the output-file.
     √ try the oth02c example
     √ finish reading <http://www.randomhacks.net/2019/03/08/should-rust-channels-panic-on-send/>
-    - make a copy of oth02b and implement concurrent producers targetting a single-consumer file-writer.
+    √ make a copy of oth02b and implement concurrent producers targetting a single-consumer file-writer.
+    - try implementing tokio's file-writer
+    - break the file-writer action out of main()
 
     - hmmm... maybe I don't have to write syncronously! <https://docs.rs/tokio/0.2.22/tokio/fs/struct.OpenOptions.html#method.append>
 
