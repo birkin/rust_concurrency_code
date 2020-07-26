@@ -1,7 +1,6 @@
 /*
     Goal: to explore <https://tokio-rs.github.io/tokio/doc/tokio/sync/index.html#mpsc-channel>
-
-    An example of a multiple-producer -> single-consumer
+    - An example of a multiple-producer -> single-consumer
 */
 
 use std::thread::sleep;

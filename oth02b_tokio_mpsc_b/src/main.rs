@@ -1,7 +1,6 @@
 /*
     Goal: to explore <https://tokio-rs.github.io/tokio/doc/tokio/sync/index.html#mpsc-channel>
     - Another example of a multiple-producer -> single-consumer
-    - TODO: add print statements so I can understand better what this is doing.
 */
 
 use tokio::io::{self, AsyncWriteExt};

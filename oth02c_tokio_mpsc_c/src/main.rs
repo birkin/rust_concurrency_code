@@ -1,6 +1,7 @@
 /*
     Goal: to explore <https://tokio-rs.github.io/tokio/doc/tokio/sync/index.html#mpsc-channel>
     - A third example of a multiple-producer -> single-consumer
+    - Uses both mpsc and oneshot channels
 */
 
 
