@@ -55,6 +55,8 @@ async fn main() -> io::Result<()> {
         write!( &fappend, "\n\n{}", text_to_write ).unwrap();
     }
 
+    println!( "final total elapsed time, ``{:?}``", start_now.elapsed() );
+
     Ok( () )
 
 }
