@@ -54,8 +54,8 @@ async fn main() -> io::Result<()> {
     println!("just called drop");
 
     while let Some( text_to_write ) = rx.recv().await {
-        write!( &fappend, "\n\n{}", text_to_write ).unwrap();
-        // write_to_file( &fappend, &text_to_write )
+        // write!( &fappend, "\n\n{}", text_to_write ).unwrap();
+        write_to_file( &fappend, &text_to_write )
     }
 
     println!( "final total elapsed time, ``{:?}``", start_now.elapsed() );
@@ -65,9 +65,9 @@ async fn main() -> io::Result<()> {
 }
 
 
-// fn write_to_file( mut fappend: &std::fs::File, text_to_write: &str ) {
-//     write!( &fappend, "\n\n{}", text_to_write ).unwrap();
-// }
+fn write_to_file( mut fappend: &std::fs::File, text_to_write: &str ) {
+    write!( fappend, "\n\n{}", text_to_write ).unwrap();
+}
 
 
 async fn expensive_computation( input: u32, start_now: time::Instant ) -> String {
