@@ -3,70 +3,60 @@
     - Another example of a multiple-producer -> single-consumer
 */
 
-use tokio::io::{self, AsyncWriteExt};
-use tokio::net::TcpStream;
-use tokio::sync::mpsc;
-
 use std::thread::sleep;
 use std::time;
-
+use tokio::io;
+use tokio::sync::mpsc;
 
 #[tokio::main]
 async fn main() -> io::Result<()> {
-    // let mut socket = TcpStream::connect( "www.example.com:1234" ).await?;
     let start_now = time::Instant::now();
+    println!("start_now, ``{:?}``", start_now );
 
-    let (tx, mut rx) = mpsc::channel( 100 );
-
-    // for _ in 0..10 {
-    //     // Each task needs its own `tx` handle. This is done by cloning the original handle.
-    //     let mut tx = tx.clone();
-
-    //     tokio::spawn( async move {
-    //         tx.send( &b"data to write"[..] ).await.unwrap();
-    //     });
-    // }
+    let (tx, mut rx) = mpsc::channel(100);
 
     for i in 0..10 {
         // Each task needs its own `tx` handle. This is done by cloning the original handle.
         let mut tx = tx.clone();
 
-        tokio::spawn( async move {
-            let res = some_computation( i, start_now ).await;
-            tx.send( res ).await.unwrap();
+        tokio::spawn(async move {
+            let res = some_computation(i, start_now).await;
+            tx.send(res).await.unwrap();
         });
     }
 
-    // The `rx` half of the channel returns `None` once **all** `tx` clones
-    // drop. To ensure `None` is returned, drop the handle owned by the
-    // current task. If this `tx` handle is not dropped, there will always
-    // be a single outstanding `tx` handle.
-
+    /*  The `rx` half of the channel returns `None` once **all** `tx` clones
+        drop. To ensure `None` is returned, drop the handle owned by the
+        current task. If this `tx` handle is not dropped, there will always
+        be a single outstanding `tx` handle.
+    */
     println!("about to call drop");
-    drop( tx );
+    drop(tx);
     println!("just called drop");
 
     while let Some(res) = rx.recv().await {
         // socket.write_all(res).await?;
-        sleep( time::Duration::from_secs(1) );
+        sleep(time::Duration::from_secs(1));
         println!("res, ``{:?}``", res);
     }
 
-    Ok( () )
-
+    Ok(())
 }
 
-
 // -- from oth02...
-async fn some_computation( input: u32, start_now: time::Instant ) -> String {
-
+async fn some_computation(input: u32, start_now: time::Instant) -> String {
     // format!( "the result of computation {}", input )
 
     let now = time::Instant::now();
-    sleep( time::Duration::from_secs(2) );
-    let msg = format!( "that_took, ``{:?}`` -- for a total elapsed time of, ``{:?}`` -- on thread, ``{:?}``", now.elapsed(), start_now.elapsed(), std::thread::current().id() ).to_string();
-    println!( "msg, {:?}", msg );
+    sleep(time::Duration::from_secs(2));
+    let msg = format!(
+        "that_took, ``{:?}`` -- for a total elapsed time of, ``{:?}`` -- on thread, ``{:?}``",
+        now.elapsed(),
+        start_now.elapsed(),
+        std::thread::current().id()
+    )
+    .to_string();
+    println!("msg, {:?}", msg);
 
-    format!( "the result of computation {}", input )
-
+    format!("the result of computation {}", input)
 }
