@@ -9,16 +9,24 @@ use std::time;
 use tokio::io;
 use tokio::sync::mpsc;
 
+use log;
+use simple_logger::SimpleLogger;
+
 #[tokio::main]
 async fn main() -> io::Result<()> {
+    log::debug!("starting main()");
+
+    SimpleLogger::new().init().unwrap();
     let start_now = time::Instant::now();
-    println!("start_now, ``{:?}``", start_now );
 
     let (tx, mut rx) = mpsc::channel(100);
+    log::debug!("sending and receiving channels instantiated");
 
     for i in 0..10 {
         // Each task needs its own `tx` handle. This is done by cloning the original handle.
-        let mut tx = tx.clone();
+        let tx = tx.clone();
+        // log::debug!("thread-id, ``{:?}``", std::thread::current().id());
+        log::debug!("tx cloned, ``{:?}``; thread-id, ``{:?}``", tx,  std::thread::current().id());
 
         tokio::spawn(async move {
             let res = some_computation(i, start_now).await;

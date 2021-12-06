@@ -7,4 +7,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+log = "0.4.14"
+simple_logger = "1.15.0"
+# simple_logger = { version = "1.15.0", features = ["timestamps", "colors"] }  // panics due to timestamps, in async function
 tokio = { version = "1.14.0", features = ["full"] }
