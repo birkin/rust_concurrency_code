@@ -14,23 +14,26 @@ use simple_logger::SimpleLogger;
 
 #[tokio::main]
 async fn main() -> io::Result<()> {
-    log::debug!("starting main()");
+    log::trace!("starting main()");
 
     SimpleLogger::new().init().unwrap();
     let start_now = time::Instant::now();
 
-    let (tx, mut rx) = mpsc::channel(100);
-    log::debug!("sending and receiving channels instantiated");
+    let (tx, mut rx) = mpsc::channel(3);
+    log::trace!("sending and receiving channels instantiated");
 
-    for i in 0..10 {
+    for i in 0..50 {
         // Each task needs its own `tx` handle. This is done by cloning the original handle.
-        let tx = tx.clone();
-        // log::debug!("thread-id, ``{:?}``", std::thread::current().id());
-        log::debug!("tx cloned, ``{:?}``; thread-id, ``{:?}``", tx,  std::thread::current().id());
+        let tx = tx.clone();  // std::thread::current().id() for each tx is ``ThreadId(1)``
 
         tokio::spawn(async move {
-            let res = some_computation(i, start_now).await;
-            tx.send(res).await.unwrap();
+            // log::debug!( "thread-id, ``{:?}``", std::thread::current().id() );  // now all the thread-ids are different
+            // log::debug!("in main spawn(); elapsed-a, ``{:?}``",  start_now.elapsed());
+            // sleep(time::Duration::from_millis(500));
+            log::debug!("in main spawn(); elapsed-a, ``{:?}``; on thread-id, ``{:?}``",  start_now.elapsed(), std::thread::current().id());
+            let rslt = some_computation(i, start_now).await;
+            log::debug!("in main spawn(); elapsed-b, ``{:?}``; on thread-id, ``{:?}``",  start_now.elapsed(), std::thread::current().id());
+            tx.send(rslt).await.unwrap();
         });
     }
 
@@ -39,14 +42,15 @@ async fn main() -> io::Result<()> {
         current task. If this `tx` handle is not dropped, there will always
         be a single outstanding `tx` handle.
     */
-    println!("about to call drop");
-    drop(tx);
-    println!("just called drop");
+    log::trace!("about to call drop");
 
-    while let Some(res) = rx.recv().await {
-        // socket.write_all(res).await?;
-        sleep(time::Duration::from_secs(1));
-        println!("res, ``{:?}``", res);
+    drop(tx);
+    log::trace!("just called drop");
+
+    while let Some(rslt) = rx.recv().await {
+        // sleep(time::Duration::from_secs(1));
+        sleep(time::Duration::from_millis(500));
+        log::info!("in main(); rslt, ``{:?}``", rslt);
     }
 
     Ok(())
@@ -54,10 +58,10 @@ async fn main() -> io::Result<()> {
 
 // -- from oth02...
 async fn some_computation(input: u32, start_now: time::Instant) -> String {
-    // format!( "the result of computation {}", input )
 
     let now = time::Instant::now();
-    sleep(time::Duration::from_secs(2));
+    // sleep(time::Duration::from_secs(2));
+    // sleep(time::Duration::from_millis(500));
     let msg = format!(
         "that_took, ``{:?}`` -- for a total elapsed time of, ``{:?}`` -- on thread, ``{:?}``",
         now.elapsed(),
@@ -65,7 +69,7 @@ async fn some_computation(input: u32, start_now: time::Instant) -> String {
         std::thread::current().id()
     )
     .to_string();
-    println!("msg, {:?}", msg);
+    log::debug!("in some_computation(); {:?}", msg);
 
-    format!("the result of computation {}", input)
+    format!("input, ``{:?}``; thread-id, ``{:?}``", input, std::thread::current().id())
 }
