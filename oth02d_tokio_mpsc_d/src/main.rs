@@ -20,11 +20,14 @@ async fn main() -> io::Result<()> {
     let start_now = time::Instant::now();
 
     let (tx, mut rx) = mpsc::channel(3);
+    log::debug!("initial-tx, ``{:?}``; total-elapsed, ``{:?}``", tx, start_now.elapsed());
+
     log::trace!("sending and receiving channels instantiated");
 
     for i in 0..50 {
         // Each task needs its own `tx` handle. This is done by cloning the original handle.
         let tx = tx.clone();  // std::thread::current().id() for each tx is ``ThreadId(1)``
+        log::debug!("cloned-tx BEFORE send, ``{:?}``; total-elapsed, ``{:?}``", tx, start_now.elapsed());
 
         tokio::spawn(async move {
             // log::debug!( "thread-id, ``{:?}``", std::thread::current().id() );  // now all the thread-ids are different
@@ -34,6 +37,7 @@ async fn main() -> io::Result<()> {
             let rslt = some_computation(i, start_now).await;
             log::debug!("in main spawn(); elapsed-b, ``{:?}``; on thread-id, ``{:?}``",  start_now.elapsed(), std::thread::current().id());
             tx.send(rslt).await.unwrap();
+            log::debug!("cloned-tx AFTER send, ``{:?}``; total-elapsed, ``{:?}``", tx, start_now.elapsed());
         });
     }
 
@@ -49,7 +53,7 @@ async fn main() -> io::Result<()> {
 
     while let Some(rslt) = rx.recv().await {
         // sleep(time::Duration::from_secs(1));
-        sleep(time::Duration::from_millis(500));
+        // sleep(time::Duration::from_millis(500));
         log::info!("in main(); rslt, ``{:?}``", rslt);
     }
 
@@ -61,7 +65,7 @@ async fn some_computation(input: u32, start_now: time::Instant) -> String {
 
     let now = time::Instant::now();
     // sleep(time::Duration::from_secs(2));
-    // sleep(time::Duration::from_millis(500));
+    sleep(time::Duration::from_millis(500));
     let msg = format!(
         "that_took, ``{:?}`` -- for a total elapsed time of, ``{:?}`` -- on thread, ``{:?}``",
         now.elapsed(),
