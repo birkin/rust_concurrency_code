@@ -12,6 +12,13 @@ use tokio::sync::mpsc;
 use log;
 use simple_logger::SimpleLogger;
 
+/*
+From:
+<https://tokio.rs/tokio/tutorial/channels>
+Re: """let (tx, mut rx) = mpsc::channel(32);"""
+"""The channel is created with a capacity of 32. If messages are sent faster than they are received, the channel will store them. Once the 32 messages are stored in the channel, calling send(...).await will go to sleep until a message has been removed by the receiver."""
+ */
+
 #[tokio::main]
 async fn main() -> io::Result<()> {
     log::trace!("starting main()");
@@ -24,7 +31,7 @@ async fn main() -> io::Result<()> {
 
     log::trace!("sending and receiving channels instantiated");
 
-    for i in 0..50 {
+    for i in 0..9 {
         // Each task needs its own `tx` handle. This is done by cloning the original handle.
         let tx = tx.clone();  // std::thread::current().id() for each tx is ``ThreadId(1)``
         log::debug!("cloned-tx BEFORE send, ``{:?}``; total-elapsed, ``{:?}``", tx, start_now.elapsed());
